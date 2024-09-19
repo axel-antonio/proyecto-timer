@@ -8,7 +8,6 @@
     <link href="https://cdnjs.cloudflare.com/ajax/libs/font-awesome/6.0.0-beta3/css/all.min.css" rel="stylesheet">
     <link href="https://fonts.googleapis.com/css2?family=Poppins:wght@600&display=swap" rel="stylesheet">
 
-    
     <style>
         :root {
             --primary-color: #1e2a38;
@@ -26,11 +25,10 @@
             color: var(--text-color);
         }
 
+        .btn.eliminar {
+            display: none;
+        }
 
-          /* Agrega esto al final de tu bloque de estilo en el <head> */
-    .btn.eliminar {
-        display: none;
-    }
         .sidebar {
             background-color: var(--primary-color);
             min-height: 100vh;
@@ -48,7 +46,6 @@
             margin-bottom: 20px;
             transition: all 0.3s ease;
             box-shadow: 0 4px 6px rgba(0,0,0,0.1);
-           
         }
 
         .card:hover {
@@ -63,10 +60,8 @@
             font-weight: bold;
             text-align: center;
             padding: 10px;
-            border-radius: 15px 15px 0 0; /* Redondea la parte superior de la tarjeta */
+            border-radius: 15px 15px 0 0;
         }
-
-        
 
         .btn {
             border-radius: 20px;
@@ -112,21 +107,50 @@
             margin-bottom: 15px;
         }
 
+        #controlador-container {
+            display: flex;
+            justify-content: center;
+            align-items: center;
+            margin-bottom: 40px;
+            position: relative;
+        }
+
         #controlador-title {
-    font-family: 'Poppins', sans-serif; /* Usa la fuente llamativa */
-    text-align: center;                /* Alineación centrada */
-    color: #ffffff;                    /* Color blanco para un buen contraste */
-    font-size: 4rem;                   /* Tamaño de fuente más grande */
-    font-weight: 700;                  /* Fuente en negrita */
-    margin-bottom: 40px;               /* Espacio debajo del título */
-    text-transform: uppercase;         /* Texto en mayúsculas */
-    letter-spacing: 6px;               /* Espaciado entre letras */
-    background: linear-gradient(135deg, #003366, #3366cc); /* Degradado de fondo */
-    -webkit-background-clip: text;     /* Fondo se aplica al texto */
-    background-clip: text;             /* Fondo se aplica al texto */
-    color: transparent;                /* Color del texto transparente para mostrar el degradado */
-    text-shadow: 3px 3px 6px rgba(0, 0, 0, 0.5); /* Sombra de texto pronunciada */
-}
+            font-family: 'Poppins', sans-serif;
+            font-size: 4rem;
+            font-weight: 700;
+            text-transform: uppercase;
+            letter-spacing: 6px;
+            background: linear-gradient(135deg, #4a90e2, #63b3ed);
+            -webkit-background-clip: text;
+            background-clip: text;
+            color: transparent;
+            text-shadow: 3px 3px 6px rgba(0, 0, 0, 0.5);
+            transition: transform 0.5s ease-in-out;
+            text-align: center;
+        }
+
+        #clock-date {
+            font-family: 'Poppins', sans-serif;
+            position: absolute;
+            top: 0;
+            right: 0;
+            padding: 10px;
+            background-color: rgba(30, 41, 59, 0.8);
+            border-radius: 15px;
+            box-shadow: 0 4px 6px rgba(0, 0, 0, 0.1);
+        }
+
+        #clock {
+            font-size: 1.8rem;
+            color: var(--accent-color);
+            font-weight: bold;
+        }
+
+        #date {
+            font-size: 1rem;
+            color: var(--text-color);
+        }
 
         .form-control {
             background-color: rgba(255,255,255,0.1);
@@ -163,18 +187,24 @@
                     </ul>
                 </div>
                 <div class="mt-3">
-    <select id="maquina-a-eliminar" class="form-select mb-2">
-        <option value="">Seleccione una máquina para eliminar</option>
-        <?php foreach ($computadoras as $pc): ?>
-            <option value="<?= $pc['id'] ?>"><?= $pc['nombre'] ?></option>
-        <?php endforeach; ?>
-    </select>
-    <button id="eliminar-maquina-btn" class="btn btn-danger w-100"><i class="fas fa-trash me-2"></i>Eliminar Máquina</button>
-</div>
+                    <select id="maquina-a-eliminar" class="form-select mb-2">
+                        <option value="">Seleccione una máquina para eliminar</option>
+                        <?php foreach ($computadoras as $pc): ?>
+                            <option value="<?= $pc['id'] ?>"><?= $pc['nombre'] ?></option>
+                        <?php endforeach; ?>
+                    </select>
+                    <button id="eliminar-maquina-btn" class="btn btn-danger w-100"><i class="fas fa-trash me-2"></i>Eliminar Máquina</button>
+                </div>
             </nav>
 
             <main class="col-md-10 ms-sm-auto col-lg-10 px-md-4 content">
-                <h1 id="controlador-title">Controlador</h1>
+                <div id="controlador-container">
+                    <h1 id="controlador-title">Controlador</h1>
+                    <div id="clock-date">
+                        <div id="clock">19:46:10</div>
+                        <div id="date">18/9/2024</div>
+                    </div>
+                </div>
 
                 <div class="row">
                     <?php foreach ($computadoras as $pc): ?>
@@ -221,11 +251,11 @@
             </main>
         </div>
     </div>
-<!-- Contenedor de alerta para mostrar mensajes -->
-<div id="alert-overlay" style="display: none; position: fixed; top: 0; left: 0; width: 100%; height: 100%; background-color: rgba(0, 0, 0, 0.8); z-index: 1000;">
-    <div id="alert-message" style="color: white; font-size: 2rem; text-align: center; position: absolute; top: 50%; left: 50%; transform: translate(-50%, -50%);"></div>
-    <button id="alert-close" style="position: absolute; top: 10%; right: 10%; padding: 10px; background-color: red; color: white;">Cerrar</button>
-</div>
+    <!-- Contenedor de alerta para mostrar mensajes -->
+    <div id="alert-overlay" style="display: none; position: fixed; top: 0; left: 0; width: 100%; height: 100%; background-color: rgba(0, 0, 0, 0.8); z-index: 1000;">
+        <div id="alert-message" style="color: white; font-size: 2rem; text-align: center; position: absolute; top: 50%; left: 50%; transform: translate(-50%, -50%);"></div>
+        <button id="alert-close" style="position: absolute; top: 10%; right: 10%; padding: 10px; background-color: red; color: white;">Cerrar</button>
+    </div>
     <script src="https://code.jquery.com/jquery-3.6.0.min.js"></script>
     <script src="https://cdn.jsdelivr.net/npm/bootstrap@5.1.3/dist/js/bootstrap.bundle.min.js"></script>
     <script>
