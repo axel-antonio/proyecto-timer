@@ -209,6 +209,22 @@ $(document).ready(function() {
             var id = card.data('id');
             sessionStartTimes[id] = inicio;
             sessionTimers[id] = setInterval(function() { actualizarContadores(); }, 1000);
+       
+       
+            function animateMachineNames() {
+                $('.card-header h5').each(function() {
+                    $(this).css('transform', 'scale(1.05)');
+                    setTimeout(() => {
+                        $(this).css('transform', 'scale(1)');
+                    }, 500);
+                });
+            }
+            
+            // Animar los nombres de las máquinas cada 5 segundos
+            setInterval(animateMachineNames, 5000);
+            
+       
+       
         } else {
             card.find('.iniciar').prop('disabled', false);
             card.find('.finalizar').prop('disabled', true);
