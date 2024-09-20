@@ -60,7 +60,7 @@ $(document).ready(function () {
         if (pararA && minutos >= pararA) {
           finalizarSesion(id, card);
           showAlert('El tiempo ha terminado para la máquina ' + card.find('.card-header h5').text());
-          playAlertSound(); // Sonar la alarma cuando el tiempo ha terminado
+          playAlertSound();
         }
       }
     });
@@ -113,24 +113,21 @@ $(document).ready(function () {
     }, 'json').fail(function () {
       showAlert('Error de comunicación con el servidor.');
     });
-  } // Función para eliminar una máquina
-
+  }
 
   function eliminarMaquina(id) {
     if (confirm('¿Está seguro de que desea eliminar esta máquina?')) {
-      playAlertSound(); // Sonar la alarma al confirmar la eliminación
-
+      playAlertSound();
       $.post(base_url + 'index.php/Ciber/eliminar_maquina', {
         id: id
       }, function (response) {
-        console.log('Respuesta del servidor:', response); // Verificar la respuesta del servidor
+        console.log('Respuesta del servidor:', response);
 
         if (response.success) {
           showAlert('Máquina eliminada correctamente.');
           setTimeout(function () {
-            // Agregar un retraso antes de recargar la página
             location.reload();
-          }, 1000); // Retraso de 1 segundo para permitir que la alarma se reproduzca
+          }, 1000);
         } else {
           showAlert('Error al eliminar la máquina.');
         }
@@ -138,15 +135,13 @@ $(document).ready(function () {
         showAlert('Error de comunicación con el servidor.');
       });
     }
-  } // Evento para el botón "Eliminar" de cada tarjeta
-
+  }
 
   $('.eliminar').click(function () {
     var card = $(this).closest('.card');
     var id = card.data('id');
     eliminarMaquina(id);
-  }); // Nuevo código para eliminar máquina desde la barra lateral
-
+  });
   $('#eliminar-maquina-btn').click(function () {
     var maquinaId = $('#maquina-a-eliminar').val();
 
@@ -202,24 +197,67 @@ $(document).ready(function () {
     }, 'json').fail(function () {
       showAlert('Error de comunicación con el servidor.');
     });
-  }); // Inicializar el estado de los botones
-
+  });
   $('.card').each(function () {
     var card = $(this);
 
     if (card.find('.estado').text().trim() === 'en uso') {
+      var animateMachineNames = function animateMachineNames() {
+        $('.card-header h5').each(function () {
+          var _this = this;
+
+          $(this).css('transform', 'scale(1.05)');
+          setTimeout(function () {
+            $(_this).css('transform', 'scale(1)');
+          }, 500);
+        });
+      }; // Animar los nombres de las máquinas cada 5 segundos
+
+
       card.find('.iniciar').prop('disabled', true);
       card.find('.finalizar').prop('disabled', false);
       var inicio = new Date(card.find('.inicio').text());
+      var id = card.data('id');
       sessionStartTimes[id] = inicio;
       sessionTimers[id] = setInterval(function () {
         actualizarContadores();
       }, 1000);
+      setInterval(animateMachineNames, 5000);
     } else {
       card.find('.iniciar').prop('disabled', false);
       card.find('.finalizar').prop('disabled', true);
     }
-  }); // Iniciar los contadores para las sesiones en curso
+  }); // New code for clock and date
+
+  function updateClockAndDate() {
+    var now = new Date();
+    var clockElement = document.getElementById('clock');
+    var dateElement = document.getElementById('date');
+
+    if (clockElement && dateElement) {
+      clockElement.textContent = now.toLocaleTimeString();
+      dateElement.textContent = now.toLocaleDateString();
+    }
+  } // Update clock and date every second
+
+
+  setInterval(updateClockAndDate, 1000); // Initial call to set the time immediately
+
+  updateClockAndDate(); // Animate the title
+
+  function animateTitle() {
+    var title = document.getElementById('controlador-title');
+
+    if (title) {
+      title.style.transform = 'scale(1.05)';
+      setTimeout(function () {
+        title.style.transform = 'scale(1)';
+      }, 500);
+    }
+  } // Animate title every 5 seconds
+
+
+  setInterval(animateTitle, 5000); // Iniciar los contadores para las sesiones en curso
 
   actualizarContadores();
   setInterval(actualizarContadores, 1000);
