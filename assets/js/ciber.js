@@ -268,3 +268,5 @@ $(document).ready(function() {
     setInterval(actualizarContadores, 1000);
 });
 
+//implementacion de alertas y notificaciones personalizadasn
+setInterval(animateTitle, 5000);
