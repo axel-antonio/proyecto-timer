@@ -4,6 +4,8 @@
     <meta charset="UTF-8">
     <meta name="viewport" content="width=device-width, initial-scale=1">
     <title>Control de Ciber</title>
+    <link rel="stylesheet" href="<?= base_url('assets/css/style.css') ?>">
+
     <link href="https://cdn.jsdelivr.net/npm/bootstrap@5.1.3/dist/css/bootstrap.min.css" rel="stylesheet">
     <link href="https://cdnjs.cloudflare.com/ajax/libs/font-awesome/6.0.0-beta3/css/all.min.css" rel="stylesheet">
     <link href="https://fonts.googleapis.com/css2?family=Poppins:wght@600&display=swap" rel="stylesheet">
@@ -283,5 +285,15 @@
         var base_url = "<?= base_url(); ?>";
     </script>
     <script src="<?= base_url('assets/js/ciber.js') ?>"></script>
+    <!-- Botón flotante para el Manual de Usuario -->
+<!-- Botón flotante para el Manual de Usuario -->
+<a href="<?= base_url('index.php/Ciber/manual') ?>" class="btn-flotante verde" title="Manual de Usuario">
+    <i class="fas fa-book"></i>
+</a>
+
+
+
+
+
 </body>
 </html>

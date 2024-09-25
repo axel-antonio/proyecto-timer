@@ -88,5 +88,8 @@ class Ciber extends CI_Controller {
         echo json_encode(['success' => $result]);
     }
     
-
+    public function manual() {
+        $this->load->view('manual_view');
+    }
+    
 }
