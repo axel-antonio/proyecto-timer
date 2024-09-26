@@ -261,6 +261,12 @@
                                         <button class="btn btn-outline-secondary enviar-mensaje" type="button"><i class="fas fa-paper-plane"></i></button>
                                     </div>
                                 </div>
+                                <!-- Inicio de la nueva sección de Notificación personalizada -->
+                                <div class="mb-3">
+                                    <label><strong>Notificación personalizada:</strong></label>
+                                    <input type="text" class="form-control form-control-sm notificacion-personalizada" value="<?= $pc['notificacion_personalizada'] ?? '' ?>" placeholder="Notificación personalizada">
+                                </div>
+                                <!-- Fin de la nueva sección de Notificación personalizada -->
                                 <div class="d-flex justify-content-between mt-3">
                                     <button class="btn btn-sm btn-success iniciar"><i class="fas fa-play me-1"></i>Iniciar</button>
                                     <button class="btn btn-sm btn-danger finalizar"><i class="fas fa-stop me-1"></i>Finalizar</button>
@@ -286,14 +292,8 @@
     </script>
     <script src="<?= base_url('assets/js/ciber.js') ?>"></script>
     <!-- Botón flotante para el Manual de Usuario -->
-<!-- Botón flotante para el Manual de Usuario -->
-<a href="<?= base_url('index.php/Ciber/manual') ?>" class="btn-flotante verde" title="Manual de Usuario">
-    <i class="fas fa-book"></i>
-</a>
-
-
-
-
-
+    <a href="<?= base_url('index.php/Ciber/manual') ?>" class="btn-flotante verde" title="Manual de Usuario">
+        <i class="fas fa-book"></i>
+    </a>
 </body>
 </html>

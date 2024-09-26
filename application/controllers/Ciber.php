@@ -56,9 +56,29 @@ class Ciber extends CI_Controller {
     public function iniciar_sesion() {
         $id = $this->input->post('id');
         $parar_a = $this->input->post('parar_a');
-        $result = $this->ciber_model->start_session($id, $parar_a);
+        $notificacion_personalizada = $this->input->post('notificacion_personalizada');
+        $result = $this->ciber_model->start_session($id, $parar_a, $notificacion_personalizada);
         echo json_encode(['success' => $result]);
     }
+
+
+    // Nuevo método para obtener la notificación personalizada
+    public function obtener_notificacion() {
+        $id = $this->input->post('id');
+        $notificacion = $this->ciber_model->get_notification($id);
+       
+//////cambio
+        if ($notificacion) {
+            echo json_encode(['notificacion' => $notificacion]);
+        } else {
+            echo json_encode(['error' => 'No se encontró la notificación personalizada.']);
+        }
+
+    }
+
+
+
+
     // Finaliza la sesión en la computadora (cambia su estado a 'sin usar')
     public function finalizar_sesion() {
         $id = $this->input->post('id');

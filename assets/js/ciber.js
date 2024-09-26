@@ -68,7 +68,7 @@ $(document).ready(function() {
                 var pararA = parseInt(card.find('.parar-a').val());
                 if (pararA && (minutos >= pararA)) {
                     finalizarSesion(id, card);
-                    showAlert('El tiempo ha terminado para la máquina ' + card.find('.card-header h5').text());
+                    mostrarNotificacionPersonalizada(id);
                     playAlertSound();
                 }
             }
@@ -78,8 +78,9 @@ $(document).ready(function() {
     function iniciarSesion(id, card) {
         var ahora = new Date();
         var pararA = card.find('.parar-a').val();
+        var notificacionPersonalizada = card.find('.notificacion-personalizada').val();
 
-        $.post(base_url + 'index.php/Ciber/iniciar_sesion', {id: id, parar_a: pararA}, function(response) {
+        $.post(base_url + 'index.php/Ciber/iniciar_sesion', {id: id, parar_a: pararA, notificacion_personalizada: notificacionPersonalizada }, function(response) {
             if (response.success) {
                 card.find('.status-indicator').removeClass('status-inactive').addClass('status-active');
                 card.find('.estado').text('en uso');
@@ -108,6 +109,7 @@ $(document).ready(function() {
                 clearInterval(sessionTimers[id]);
                 delete sessionStartTimes[id];
                 delete sessionTimers[id];
+                card.find('.notificacion-personalizada').val('');
                 card.find('.iniciar').prop('disabled', false);
                 card.find('.finalizar').prop('disabled', true);
             } else {
@@ -117,6 +119,20 @@ $(document).ready(function() {
             showAlert('Error de comunicación con el servidor.');
         });
     }
+
+
+    function mostrarNotificacionPersonalizada(id) {
+        $.post(base_url + 'index.php/Ciber/obtener_notificacion', {id: id}, function(response) {
+            if (response.notificacion) {
+                showAlert(response.notificacion);
+                playAlertSound();
+            }
+        }, 'json').fail(function() {
+            console.log('Error al obtener la notificación personalizada.');
+        });
+    }
+
+
 
     function eliminarMaquina(id) {
         if (confirm('¿Está seguro de que desea eliminar esta máquina?')) {

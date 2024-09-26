@@ -41,13 +41,14 @@ class Ciber_model extends CI_Model {
     }
 
     // Iniciar sesión en una máquina
-    public function start_session($id, $parar_a) {
+    public function start_session($id, $parar_a, $notificacion_personalizada) {
         $this->db->where('id', $id);
         return $this->db->update('computadoras', [
             'estado' => 'en uso',
             'inicio' => date('H:i:s'),
             'contador' => '00:00:00',
-            'parar_a' => $parar_a
+            'parar_a' => $parar_a,
+            'notificacion_personalizada' => $notificacion_personalizada
         ]);
     }
 
@@ -58,9 +59,27 @@ class Ciber_model extends CI_Model {
             'estado' => 'sin usar',
             'inicio' => NULL,
             'contador' => NULL,
-            'nota' => ''
+            'nota' => '',
+            'notificacion_personalizada' => NULL
         ]);
     }
+
+  // Nuevo método para obtener la notificación personalizada
+  public function get_notification($id) {
+    $this->db->select('notificacion_personalizada');
+    $this->db->where('id', $id);
+    $query = $this->db->get('computadoras');
+    
+     // Asegurarte de que devuelva el valor correcto
+     if ($query->num_rows() > 0) {
+        return $query->row()->notificacion_personalizada;
+    }
+    return null; // En caso de que no se encuentre
+}
+
+
+
+
 
     // Actualizar nota y mensaje de una máquina
     public function update_computer_note_and_message($id, $nota, $mensaje) {
