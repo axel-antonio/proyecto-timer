@@ -268,3 +268,16 @@ $(document).ready(function() {
     setInterval(actualizarContadores, 1000);
 });
 
+$(document).ready(function(){  
+    $("#btnApi").on("click",function(){
+        $.ajax({
+            type: "POST",
+            url: "proyecto-timer/ciber.php",
+            success: function(response){
+                $("#resultados").html(response);
+            }
+        });
+    });
+
+});
+

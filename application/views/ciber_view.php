@@ -1,5 +1,6 @@
 <!DOCTYPE html>
 <html lang="es">
+
 <head>
     <meta charset="UTF-8">
     <meta name="viewport" content="width=device-width, initial-scale=1">
@@ -47,33 +48,38 @@
             border-radius: 25px;
             margin-bottom: 20px;
             transition: all 0.3s ease;
-            box-shadow: 0 4px 6px rgba(0,0,0,0.1);
+            box-shadow: 0 4px 6px rgba(0, 0, 0, 0.1);
         }
 
-/* Estilo para los nombres de las máquinas */
-.card-header h5 {
-    font-weight: 600; /* Negrita */
-    font-size: 1.5em;
-    color: #ffffff;
-    text-shadow: 1px 1px 3px rgba(0, 0, 0, 0.3); /* Efecto de sombra */
-    animation: bounce 2s infinite;
-    color: #fff;
-}
+        /* Estilo para los nombres de las máquinas */
+        .card-header h5 {
+            font-weight: 600;
+            /* Negrita */
+            font-size: 1.5em;
+            color: #ffffff;
+            text-shadow: 1px 1px 3px rgba(0, 0, 0, 0.3);
+            /* Efecto de sombra */
+            animation: bounce 2s infinite;
+            color: #fff;
+        }
 
-/* Animación bounce */
-@keyframes bounce {
-    0%, 100% {
-        transform: scale(1);
-    }
-    50% {
-        transform: scale(1.1);
-    }
-}
+        /* Animación bounce */
+        @keyframes bounce {
+
+            0%,
+            100% {
+                transform: scale(1);
+            }
+
+            50% {
+                transform: scale(1.1);
+            }
+        }
 
 
         .card:hover {
             transform: translateY(-5px);
-            box-shadow: 0 8px 15px rgba(0,0,0,0.2);
+            box-shadow: 0 8px 15px rgba(0, 0, 0, 0.2);
         }
 
         .card-header {
@@ -96,13 +102,24 @@
             color: var(--button-text-color);
         }
 
-        .btn-success { background-color: #003d6b; border-color: #003d6b; }
-        .btn-danger { background-color: #002f4b; border-color: #002f4b; }
-        .btn-warning { background-color: #001a33; border-color: #001a33; }
+        .btn-success {
+            background-color: #003d6b;
+            border-color: #003d6b;
+        }
+
+        .btn-danger {
+            background-color: #002f4b;
+            border-color: #002f4b;
+        }
+
+        .btn-warning {
+            background-color: #001a33;
+            border-color: #001a33;
+        }
 
         .btn:hover {
             transform: translateY(-2px);
-            box-shadow: 0 2px 5px rgba(0,0,0,0.2);
+            box-shadow: 0 2px 5px rgba(0, 0, 0, 0.2);
         }
 
         .status-indicator {
@@ -113,8 +130,13 @@
             margin-right: 5px;
         }
 
-        .status-active { background-color: #10b981; }
-        .status-inactive { background-color: #ef4444; }
+        .status-active {
+            background-color: #10b981;
+        }
+
+        .status-inactive {
+            background-color: #ef4444;
+        }
 
         .contador {
             font-size: 2.5rem;
@@ -176,19 +198,20 @@
         }
 
         .form-control {
-            background-color: rgba(255,255,255,0.1);
-            border: 1px solid rgba(255,255,255,0.2);
+            background-color: rgba(255, 255, 255, 0.1);
+            border: 1px solid rgba(255, 255, 255, 0.2);
             color: var(--text-color);
         }
 
         .form-control:focus {
-            background-color: rgba(255,255,255,0.2);
+            background-color: rgba(255, 255, 255, 0.2);
             border-color: var(--accent-color);
             color: var(--text-color);
             box-shadow: 0 0 0 0.2rem rgba(34, 211, 238, 0.25);
         }
     </style>
 </head>
+
 <body>
     <div class="container-fluid">
         <div class="row">
@@ -202,7 +225,8 @@
                             </a>
                         </li>
                         <li class="nav-item mt-3">
-                            <a class="nav-link btn btn-info text-white" href="<?= base_url('index.php/Ciber/agregar_maquina_form') ?>">
+                            <a class="nav-link btn btn-info text-white"
+                                href="<?= base_url('index.php/Ciber/agregar_maquina_form') ?>">
                                 <i class="fas fa-plus-circle me-2"></i>
                                 Agregar Máquina
                             </a>
@@ -216,7 +240,8 @@
                             <option value="<?= $pc['id'] ?>"><?= $pc['nombre'] ?></option>
                         <?php endforeach; ?>
                     </select>
-                    <button id="eliminar-maquina-btn" class="btn btn-danger w-100"><i class="fas fa-trash me-2"></i>Eliminar Máquina</button>
+                    <button id="eliminar-maquina-btn" class="btn btn-danger w-100"><i
+                            class="fas fa-trash me-2"></i>Eliminar Máquina</button>
                 </div>
             </nav>
 
@@ -231,53 +256,79 @@
 
                 <div class="row">
                     <?php foreach ($computadoras as $pc): ?>
-                    <div class="col-md-6 col-lg-4 mb-4">
-                        <div class="card" data-id="<?= $pc['id'] ?>">
-                            <div class="card-header">
-                                <h5 class="mb-0"><?= $pc['nombre'] ?></h5>
-                            </div>
-                            <div class="card-body">
-                                <div class="text-center">
-                                    <i class="fas fa-desktop computer-icon"></i>
+                        <div class="col-md-6 col-lg-4 mb-4">
+                            <div class="card" data-id="<?= $pc['id'] ?>">
+                                <div class="card-header">
+                                    <h5 class="mb-0"><?= $pc['nombre'] ?></h5>
                                 </div>
-                                <p class="text-center"><strong>Inicio:</strong> <span class="inicio"><?= $pc['inicio'] ? date('H:i:s', strtotime($pc['inicio'])) : '00:00:00' ?></span></p>
-                                <div class="contador"><?= $pc['contador'] ? $pc['contador'] : '00:00:00' ?></div>
-                                <p class="text-center">
-                                    <span class="status-indicator <?= $pc['estado'] == 'en uso' ? 'status-active' : 'status-inactive' ?>"></span>
-                                    <span class="estado"><?= $pc['estado'] ?></span>
-                                </p>
-                                <div class="mb-3">
-                                    <label><strong>Parar a (min):</strong></label>
-                                    <input type="number" class="form-control form-control-sm parar-a" value="<?= $pc['parar_a'] ?>" min="1" placeholder="Min">
-                                </div>
-                                <div class="mb-3">
-                                    <label><strong>Nota:</strong></label>
-                                    <input type="text" class="form-control form-control-sm nota" value="<?= $pc['nota'] ?>" placeholder="Nota">
-                                </div>
-                                <div class="mb-3">
-                                    <label><strong>Mensaje:</strong></label>
-                                    <div class="input-group input-group-sm">
-                                        <input type="text" class="form-control mensaje" value="<?= $pc['mensaje'] ?>" placeholder="Mensaje">
-                                        <button class="btn btn-outline-secondary enviar-mensaje" type="button"><i class="fas fa-paper-plane"></i></button>
+                                <div class="card-body">
+                                    <div class="text-center">
+                                        <i class="fas fa-desktop computer-icon"></i>
                                     </div>
-                                </div>
-                                <div class="d-flex justify-content-between mt-3">
-                                    <button class="btn btn-sm btn-success iniciar"><i class="fas fa-play me-1"></i>Iniciar</button>
-                                    <button class="btn btn-sm btn-danger finalizar"><i class="fas fa-stop me-1"></i>Finalizar</button>
-                                    <button class="btn btn-sm btn-warning eliminar"><i class="fas fa-trash me-1"></i>Eliminar</button>
+                                    <p class="text-center"><strong>Inicio:</strong> <span
+                                            class="inicio"><?= $pc['inicio'] ? date('H:i:s', strtotime($pc['inicio'])) : '00:00:00' ?></span>
+                                    </p>
+                                    <div class="contador"><?= $pc['contador'] ? $pc['contador'] : '00:00:00' ?></div>
+                                    <p class="text-center">
+                                        <span
+                                            class="status-indicator <?= $pc['estado'] == 'en uso' ? 'status-active' : 'status-inactive' ?>"></span>
+                                        <span class="estado"><?= $pc['estado'] ?></span>
+                                    </p>
+                                    <div class="mb-3">
+                                        <label><strong>Parar a (min):</strong></label>
+                                        <input type="number" class="form-control form-control-sm parar-a"
+                                            value="<?= $pc['parar_a'] ?>" min="1" placeholder="Min">
+                                    </div>
+                                    <div class="mb-3">
+                                        <label><strong>Nota:</strong></label>
+                                        <input type="text" class="form-control form-control-sm nota"
+                                            value="<?= $pc['nota'] ?>" placeholder="Nota">
+                                    </div>
+                                    <div><p><strong><?php print_r($clima) ?></strong></p></div>
+                                    <!-- <div class="col-12">
+                                        <input type="button" class="btn btn-info mt-3" value="Clima Api" id="btnApi">
+                                    </div> -->
+                                    <div class="resultadosContainer" class="card mt-4 p-3">
+                                    <form action="" action="" method="get">
+                                        <label for="direccion"></label>
+                                        <input type="text" name="direccion" value="">
+                                        <button type="submit" name="button">Enviar</button>
+                                    </form>
+                                    <!-- <p class="text-dark" id="resultados"></p> -->
+                                    </div>
+                                    <div class="mb-3">
+                                        <label><strong>Mensaje:</strong></label>
+                                        <div class="input-group input-group-sm">
+                                            <input type="text" class="form-control mensaje" value="<?= $pc['mensaje'] ?>"
+                                                placeholder="Mensaje">
+                                            <button class="btn btn-outline-secondary enviar-mensaje" type="button"><i
+                                                    class="fas fa-paper-plane"></i></button>
+                                        </div>
+                                    </div>
+                                    <div class="d-flex justify-content-between mt-3">
+                                        <button class="btn btn-sm btn-success iniciar"><i
+                                                class="fas fa-play me-1"></i>Iniciar</button>
+                                        <button class="btn btn-sm btn-danger finalizar"><i
+                                                class="fas fa-stop me-1"></i>Finalizar</button>
+                                        <button class="btn btn-sm btn-warning eliminar"><i
+                                                class="fas fa-trash me-1"></i>Eliminar</button>
+                                    </div>
                                 </div>
                             </div>
                         </div>
-                    </div>
                     <?php endforeach; ?>
                 </div>
             </main>
         </div>
     </div>
     <!-- Contenedor de alerta para mostrar mensajes -->
-    <div id="alert-overlay" style="display: none; position: fixed; top: 0; left: 0; width: 100%; height: 100%; background-color: rgba(0, 0, 0, 0.8); z-index: 1000;">
-        <div id="alert-message" style="color: white; font-size: 2rem; text-align: center; position: absolute; top: 50%; left: 50%; transform: translate(-50%, -50%);"></div>
-        <button id="alert-close" style="position: absolute; top: 10%; right: 10%; padding: 10px; background-color: red; color: white;">Cerrar</button>
+    <div id="alert-overlay"
+        style="display: none; position: fixed; top: 0; left: 0; width: 100%; height: 100%; background-color: rgba(0, 0, 0, 0.8); z-index: 1000;">
+        <div id="alert-message"
+            style="color: white; font-size: 2rem; text-align: center; position: absolute; top: 50%; left: 50%; transform: translate(-50%, -50%);">
+        </div>
+        <button id="alert-close"
+            style="position: absolute; top: 10%; right: 10%; padding: 10px; background-color: red; color: white;">Cerrar</button>
     </div>
     <script src="https://code.jquery.com/jquery-3.6.0.min.js"></script>
     <script src="https://cdn.jsdelivr.net/npm/bootstrap@5.1.3/dist/js/bootstrap.bundle.min.js"></script>
@@ -286,14 +337,15 @@
     </script>
     <script src="<?= base_url('assets/js/ciber.js') ?>"></script>
     <!-- Botón flotante para el Manual de Usuario -->
-<!-- Botón flotante para el Manual de Usuario -->
-<a href="<?= base_url('index.php/Ciber/manual') ?>" class="btn-flotante verde" title="Manual de Usuario">
-    <i class="fas fa-book"></i>
-</a>
+    <!-- Botón flotante para el Manual de Usuario -->
+    <a href="<?= base_url('index.php/Ciber/manual') ?>" class="btn-flotante verde" title="Manual de Usuario">
+        <i class="fas fa-book"></i>
+    </a>
 
 
 
 
 
 </body>
+
 </html>
