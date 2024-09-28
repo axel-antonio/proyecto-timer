@@ -64,3 +64,16 @@ $route['Ciber/eliminar_maquina'] = 'Ciber/eliminar_maquina';
 $route['login'] = 'login/index';
 $route['login/authenticate'] = 'login/authenticate';
 $route['logout'] = 'login/logout';
+
+
+
+$route['Categoria'] = 'Categoria/index';
+$route['Categoria/crear'] = 'Categoria/crear';
+$route['Categoria/guardar'] = 'Categoria/guardar';
+$route['Categoria/editar/(:num)'] = 'Categoria/editar/$1';
+$route['Categoria/actualizar/(:num)'] = 'Categoria/actualizar/$1';
+$route['Categoria/eliminar/(:num)'] = 'Categoria/eliminar/$1';
+$route['Categoria'] = 'Categoria/index';
+
+$route['Categoria/guardar'] = 'Categoria/guardar';
+

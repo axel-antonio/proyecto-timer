@@ -1,0 +1,193 @@
+/* General styles */
+body {
+    font-family: 'Segoe UI', Tahoma, Geneva, Verdana, sans-serif;
+    background-color: #2c3e50; /* Fondo oscuro */
+    color: #ecf0f1;
+    margin: 0;
+    padding: 0;
+}
+
+/* Contenedor de categorías */
+.container-categorias {
+    background-color: #34495e;
+    border-radius: 15px;
+    padding: 30px;
+    margin: 50px auto;
+    max-width: 900px; /* Aumentado el ancho */
+    box-shadow: 0 4px 10px rgba(0, 0, 0, 0.3);
+    text-align: center;
+}
+
+h2 {
+    font-size: 28px; /* Aumentado el tamaño */
+    margin-bottom: 30px;
+    color: #ecf0f1;
+}
+
+/* Botón agregar */
+.btn-agregar {
+    background-color: #27ae60;
+    color: #ffffff;
+    padding: 10px 20px;
+    border: none;
+    border-radius: 5px;
+    text-decoration: none;
+    font-weight: bold;
+    margin-bottom: 20px;
+    display: inline-block;
+}
+
+.btn-agregar:hover {
+    background-color: #2ecc71;
+}
+
+/* Tabla de categorías */
+.tabla-categorias {
+    width: 100%;
+    border-collapse: collapse;
+    margin-bottom: 20px;
+}
+
+th, td {
+    padding: 15px;
+    text-align: left;
+    border-bottom: 1px solid #2c3e50;
+}
+
+th {
+    background-color: #2980b9;
+    color: white;
+    font-size: 18px; /* Aumentado el tamaño */
+}
+
+td {
+    background-color: #3d3d3d;
+    color: white;
+}
+
+/* Botones en la columna de acciones */
+.acciones .btn-editar,
+.acciones .btn-eliminar {
+    background-color: #3498db;
+    color: white;
+    padding: 8px 12px;
+    border-radius: 3px;
+    text-decoration: none;
+    margin-right: 10px;
+    display: inline-block;
+}
+
+.acciones .btn-eliminar {
+    background-color: #e74c3c;
+}
+
+.acciones .btn-editar:hover {
+    background-color: #2980b9;
+}
+
+.acciones .btn-eliminar:hover {
+    background-color: #c0392b;
+}
+
+/* Botón regresar */
+.btn-regresar {
+    background-color: #2980b9;
+    color: #ffffff;
+    padding: 10px 20px;
+    border: none;
+    border-radius: 5px;
+    text-decoration: none;
+    font-weight: bold;
+    display: inline-block;
+    margin-top: 20px;
+}
+
+.btn-regresar:hover {
+    background-color: #3498db;
+    text-decoration: none;
+}
+
+/* Estilo para los mensajes */
+.alert-success {
+    color: #2ecc71;
+    font-weight: bold;
+    margin-bottom: 20px;
+}
+
+
+
+
+/* Contenedor de edición de categorías */
+.container-editar {
+    background-color: #34495e;
+    border-radius: 15px;
+    padding: 30px;
+    margin: 50px auto;
+    max-width: 600px;
+    box-shadow: 0 4px 10px rgba(0, 0, 0, 0.3);
+    color: #ecf0f1;
+}
+
+h2 {
+    text-align: center;
+    font-size: 28px;
+    margin-bottom: 20px;
+}
+
+/* Estilos para el formulario */
+.form-categoria {
+    display: flex;
+    flex-direction: column;
+    gap: 15px;
+}
+
+.form-group label {
+    font-size: 16px;
+    margin-bottom: 5px;
+}
+
+.form-group input,
+.form-group textarea {
+    width: 100%;
+    padding: 10px;
+    border-radius: 5px;
+    border: 1px solid #7f8c8d;
+    background-color: #2c3e50;
+    color: #ecf0f1;
+}
+
+.form-group textarea {
+    resize: vertical;
+}
+
+button[type="submit"].btn-guardar {
+    background-color: #27ae60;
+    color: #ffffff;
+    padding: 10px;
+    border: none;
+    border-radius: 5px;
+    font-size: 16px;
+    cursor: pointer;
+}
+
+button[type="submit"].btn-guardar:hover {
+    background-color: #2ecc71;
+}
+
+/* Botón regresar */
+.btn-regresar {
+    display: inline-block;
+    margin-top: 20px;
+    background-color: #2980b9;
+    color: #ffffff;
+    padding: 10px 20px;
+    border-radius: 5px;
+    text-decoration: none;
+    text-align: center;
+    font-weight: bold;
+}
+
+.btn-regresar:hover {
+    background-color: #3498db;
+    text-decoration: none;
+}
