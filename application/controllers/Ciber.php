@@ -88,32 +88,5 @@ class Ciber extends CI_Controller {
         echo json_encode(['success' => $result]);
     }
     
-    public function manual() {
-        $this->load->view('manual_view');
-    
-    }
-
-    // Inicia la sesión en la computadora (cambia su estado a 'en uso')
-public function iniciar_sesion() {
-    $id = $this->input->post('id');
-    $parar_a = $this->input->post('parar_a');
-    $tiempo_limite = 60; // Tiempo límite en minutos (cambiar según sea necesario)
-
-    // Verificar si el usuario ha alcanzado el tiempo límite
-    $current_time = time();
-    $start_time = $this->ciber_model->get_start_time($id);
-    $elapsed_time = ($current_time - $start_time) / 60; // Convertir a minutos
-
-    if ($elapsed_time >= $tiempo_limite) {
-        // Bloquear la sesión
-        $this->ciber_model->block_session($id);
-        echo json_encode(['success' => false, 'message' => 'Tiempo límite alcanzado. Sesión bloqueada.']);
-        return;
-    }
-
-    $result = $this->ciber_model->start_session($id, $parar_a);
-    echo json_encode(['success' => $result]);
-}
-    
 
 }

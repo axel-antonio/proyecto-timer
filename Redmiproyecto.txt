@@ -1,0 +1,73 @@
+README.txt - Proyecto Control de Ciber
+
+Descripción:
+-------------
+Este proyecto es una aplicación web diseñada para gestionar y controlar el tiempo. Permite a los administradores iniciar, pausar, reanudar y finalizar sesiones de las computadoras, así como agregar o eliminar máquinas del sistema.
+
+Funcionalidades principales:
+----------------------------
+1. **Iniciar sesión en una máquina**: Permite iniciar el temporizador de una máquina en uso.
+2. **Pausar y reanudar sesiones**: Función para pausar el tiempo de uso de una máquina y reanudarlo cuando sea necesario.
+3. **Finalizar sesión**: Detiene la sesión y restablece el temporizador.
+4. **Agregar máquinas**: Se pueden agregar nuevas máquinas al sistema.
+5. **Eliminar máquinas**: Posibilidad de eliminar máquinas del sistema.
+6. **Mensajes y notas**: Cada máquina permite agregar mensajes y notas, que son guardados en la base de datos.
+7. **Alertas**: Se muestran alertas cuando el tiempo de una máquina ha llegado a su límite, acompañadas de sonido.
+8. **Interfaz responsiva**: El diseño se adapta a diferentes dispositivos, asegurando una buena experiencia tanto en computadoras de escritorio como en dispositivos móviles.
+
+Requisitos del sistema:
+------------------------
+- Servidor web (XAMPP, LAMP o similar) con PHP instalado.
+- Base de datos MySQL para guardar el estado de las máquinas.
+- Navegador moderno compatible con HTML5, CSS3 y JavaScript.
+- Bootstrap 5 y jQuery para el frontend.
+
+Instrucciones de instalación:
+-----------------------------
+1. **Clonar o descargar el proyecto**:
+   - Clona el repositorio o descarga los archivos a tu servidor local.
+
+2. **Configurar la base de datos**:
+   - Crea una base de datos en MySQL llamada `ciber_control`.
+   - Ejecuta el archivo SQL proporcionado (si lo hay) o crea las tablas manualmente según el esquema que hayas definido en el modelo.
+
+3. **Configurar el proyecto**:
+   - Configura el archivo `config/config.php` de CodeIgniter para establecer la base URL correcta.
+   - En el archivo `config/database.php`, asegúrate de establecer los detalles correctos de conexión a la base de datos.
+
+4. **Iniciar el servidor**:
+   - Inicia el servidor local (XAMPP, LAMP, etc.) y asegúrate de que esté funcionando.
+   - Accede a la URL del proyecto, por ejemplo: `http://localhost/ciber_control`.
+
+Estructura del proyecto:
+------------------------
+- **ciber_view.php**: Archivo principal de la vista que muestra el estado de las máquinas y los controles.
+- **ciber.js**: Archivo JavaScript que maneja la lógica del frontend (inicio, pausa, reanudar, etc.).
+- **CiberControl.php**: Controlador en CodeIgniter que se encarga de la lógica de negocio.
+- **CiberModel.php**: Modelo que interactúa con la base de datos para obtener y guardar información de las máquinas.
+- **assets/css/ciber.css**: Archivo CSS personalizado con estilos para el diseño del proyecto.
+
+Créditos:
+---------
+- Desarrollado por [GRUPO 5. DESARROLLO WEB UMG].
+Licencia
+El proyecto proyecto-timer está licenciado bajo la licencia MIT.
+Autoría 
+•	Carlos Osbeli Matías Castillo- Manual Usuario  
+•	Magdhony Yordany Castellanos del Aguila- Documentación de github - Yordany06
+•	Doris Yanet Joan Benito Meza- Documentación github - dbenitom26  
+•	Jhosseff Ottoniel Orantes Aragón- Desarrollador - Jhossefff  
+•	Antonio Ramírez Ajtzip- Desarrollador - axel-antonio    
+•	Gerberth Enrique Pinelo Marroquin- Desarrollador aws -  
+
+- Uso de Bootstrap 5 para el diseño responsivo.
+- Google Fonts para las fuentes utilizadas.
+- Font Awesome para los íconos en la interfaz.
+
+Licencia
+El proyecto proyecto-timer es de codigo abierto.
+
+Notas adicionales:
+------------------
+- Asegúrate de que los permisos de las carpetas estén correctamente configurados para que el servidor web pueda acceder a los archivos y las bases de datos.
+- Revisa la configuración de sonido para las alertas en `ciber.js` y asegúrate de que los archivos de sonido se encuentren en la ruta correcta (`assets/audio/`).
