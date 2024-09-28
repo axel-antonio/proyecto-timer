@@ -292,7 +292,10 @@
 </a>
 
 
-
+<!-- Botón flotante para ingreso de Categorias -->
+<div class="text-center mt-3">
+    <a href="<?= base_url('index.php/Categoria') ?>" class="btn btn-primary"><i class="fas fa-list me-2"></i> Gestión de Categorías</a>
+</div>
 
 
 </body>
