@@ -10,6 +10,8 @@
     <link href="https://cdnjs.cloudflare.com/ajax/libs/font-awesome/6.0.0-beta3/css/all.min.css" rel="stylesheet">
     <link href="https://fonts.googleapis.com/css2?family=Poppins:wght@600&display=swap" rel="stylesheet">
     <link href="https://fonts.googleapis.com/css2?family=Poppins:wght@300;400;600&display=swap" rel="stylesheet">
+    <link rel="stylesheet" href="https://cdn.jsdelivr.net/npm/sweetalert2@11.0.19/dist/sweetalert2.min.css">
+    <script src="https://cdn.jsdelivr.net/npm/sweetalert2@11.0.19/dist/sweetalert2.all.min.js"></script>
     <style>
         :root {
             --primary-color: #1e2a38;
@@ -50,26 +52,25 @@
             box-shadow: 0 4px 6px rgba(0,0,0,0.1);
         }
 
-/* Estilo para los nombres de las máquinas */
-.card-header h5 {
-    font-weight: 600; /* Negrita */
-    font-size: 1.5em;
-    color: #ffffff;
-    text-shadow: 1px 1px 3px rgba(0, 0, 0, 0.3); /* Efecto de sombra */
-    animation: bounce 2s infinite;
-    color: #fff;
-}
+        /* Estilo para los nombres de las máquinas */
+        .card-header h5 {
+            font-weight: 600; /* Negrita */
+            font-size: 1.5em;
+            color: #ffffff;
+            text-shadow: 1px 1px 3px rgba(0, 0, 0, 0.3); /* Efecto de sombra */
+            animation: bounce 2s infinite;
+            color: #fff;
+        }
 
-/* Animación bounce */
-@keyframes bounce {
-    0%, 100% {
-        transform: scale(1);
-    }
-    50% {
-        transform: scale(1.1);
-    }
-}
-
+        /* Animación bounce */
+        @keyframes bounce {
+            0%, 100% {
+                transform: scale(1);
+            }
+            50% {
+                transform: scale(1.1);
+            }
+        }
 
         .card:hover {
             transform: translateY(-5px);
@@ -187,6 +188,27 @@
             color: var(--text-color);
             box-shadow: 0 0 0 0.2rem rgba(34, 211, 238, 0.25);
         }
+
+        .swal-custom-popup {
+            border-radius: 15px;
+            box-shadow: 0 0 20px rgba(0, 0, 0, 0.4);
+        }
+
+        .swal-custom-title {
+            font-size: 1.8em;
+            color: #22d3ee;
+        }
+
+        .swal-custom-content {
+            font-size: 1.2em;
+        }
+
+        .swal-custom-confirm {
+            font-weight: bold;
+            text-transform: uppercase;
+            padding: 10px 20px;
+            border-radius: 30px;
+        }
     </style>
 </head>
 <body>
@@ -277,11 +299,6 @@
             </main>
         </div>
     </div>
-    <!-- Contenedor de alerta para mostrar mensajes -->
-    <div id="alert-overlay" style="display: none; position: fixed; top: 0; left: 0; width: 100%; height: 100%; background-color: rgba(0, 0, 0, 0.8); z-index: 1000;">
-        <div id="alert-message" style="color: white; font-size: 2rem; text-align: center; position: absolute; top: 50%; left: 50%; transform: translate(-50%, -50%);"></div>
-        <button id="alert-close" style="position: absolute; top: 10%; right: 10%; padding: 10px; background-color: red; color: white;">Cerrar</button>
-    </div>
     <script src="https://code.jquery.com/jquery-3.6.0.min.js"></script>
     <script src="https://cdn.jsdelivr.net/npm/bootstrap@5.1.3/dist/js/bootstrap.bundle.min.js"></script>
     <script>
@@ -289,14 +306,8 @@
     </script>
     <script src="<?= base_url('assets/js/ciber.js') ?>"></script>
     <!-- Botón flotante para el Manual de Usuario -->
-<!-- Botón flotante para el Manual de Usuario -->
-<a href="<?= base_url('index.php/Ciber/manual') ?>" class="btn-flotante verde" title="Manual de Usuario">
-    <i class="fas fa-book"></i>
-</a>
-
-
-
-
-
+    <a href="<?= base_url('index.php/Ciber/manual') ?>" class="btn-flotante verde" title="Manual de Usuario">
+        <i class="fas fa-book"></i>
+    </a>
 </body>
 </html>

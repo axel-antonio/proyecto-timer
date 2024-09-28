@@ -16,9 +16,22 @@ $(document).ready(function() {
 
     console.log('Ruta del sonido:', base_url + 'assets/audio/alert_sound.mp3');
 
-    function showAlert(message) {
-        $('#alert-message').text(message);
-        $('#alert-overlay').fadeIn();
+    function showAlert(message, icon = 'warning') {
+        Swal.fire({
+            title: 'Alerta',
+            text: message,
+            icon: icon,
+            confirmButtonText: 'Entendido',
+            background: '#1e293b',
+            color: '#e2e8f0',
+            confirmButtonColor: '#3498db',
+            customClass: {
+                popup: 'swal-custom-popup',
+                title: 'swal-custom-title',
+                content: 'swal-custom-content',
+                confirmButton: 'swal-custom-confirm'
+            }
+        });
     }
 
     function playAlertSound() {
@@ -38,10 +51,6 @@ $(document).ready(function() {
     $('body').append('<button id="prueba-sonido" style="position: fixed; bottom: 20px; right: 20px; z-index: 1000;">Probar Sonido</button>');
     $('#prueba-sonido').click(function() {
         playAlertSound();
-    });
-
-    $('#alert-close').click(function() {
-        $('#alert-overlay').fadeOut();
     });
 
     function actualizarContadores() {
@@ -69,34 +78,57 @@ $(document).ready(function() {
                 if (pararA && (minutos >= pararA)) {
                     finalizarSesion(id, card);
                     mostrarNotificacionPersonalizada(id, card);
-                    
                 }
             }
         });
     }
 
-    ///cambio nueva funcionalidad 
     function mostrarNotificacionPersonalizada(id, card) {
         $.get(base_url + 'index.php/Ciber/obtener_notificacion_personalizada/' + id, function(response) {
-            console.log('Respuesta del servidor:', response); // Agrega esta línea
+            console.log('Respuesta del servidor:', response);
             if (response.success && response.notificacion) {
-                showAlert(response.notificacion.mensaje);
+                Swal.fire({
+                    title: 'Tiempo Agotado',
+                    html: response.notificacion.mensaje,
+                    icon: 'warning',
+                    confirmButtonText: 'Entendido',
+                    background: '#1e293b',
+                    color: '#e2e8f0',
+                    confirmButtonColor: '#3498db',
+                    customClass: {
+                        popup: 'swal-custom-popup',
+                        title: 'swal-custom-title',
+                        content: 'swal-custom-content',
+                        confirmButton: 'swal-custom-confirm'
+                    }
+                });
+
                 if (response.notificacion.reproducir_sonido) {
                     playAlertSound();
                 }
             } else {
                 // Si no hay notificación personalizada, mostrar la predeterminada
-                showAlert('tu tiempo a terminado ' + card.find('.card-header h5').text());
+                Swal.fire({
+                    title: 'Tiempo Agotado',
+                    html: 'Tu tiempo ha terminado en ' + card.find('.card-header h5').text(),
+                    icon: 'warning',
+                    confirmButtonText: 'Entendido',
+                    background: '#1e293b',
+                    color: '#e2e8f0',
+                    confirmButtonColor: '#3498db',
+                    customClass: {
+                        popup: 'swal-custom-popup',
+                        title: 'swal-custom-title',
+                        content: 'swal-custom-content',
+                        confirmButton: 'swal-custom-confirm'
+                    }
+                });
                 playAlertSound();
             }
         }, 'json').fail(function() {
-            showAlert('Error al obtener la notificación personalizada.');
+            showAlert('Error al obtener la notificación personalizada.', 'error');
         });
     }
-///fin cambio nueva funcionalidad
-
-
-
 
     function iniciarSesion(id, card) {
         var ahora = new Date();
@@ -113,10 +145,10 @@ $(document).ready(function() {
                 card.find('.iniciar').prop('disabled', true);
                 card.find('.finalizar').prop('disabled', false);
             } else {
-                showAlert('Error al iniciar sesión.');
+                showAlert('Error al iniciar sesión.', 'error');
             }
         }, 'json').fail(function() {
-            showAlert('Error de comunicación con el servidor.');
+            showAlert('Error de comunicación con el servidor.', 'error');
         });
     }
 
@@ -134,30 +166,43 @@ $(document).ready(function() {
                 card.find('.iniciar').prop('disabled', false);
                 card.find('.finalizar').prop('disabled', true);
             } else {
-                showAlert('Error al finalizar sesión.');
+                showAlert('Error al finalizar sesión.', 'error');
             }
         }, 'json').fail(function() {
-            showAlert('Error de comunicación con el servidor.');
+            showAlert('Error de comunicación con el servidor.', 'error');
         });
     }
 
     function eliminarMaquina(id) {
-        if (confirm('¿Está seguro de que desea eliminar esta máquina?')) {
-            playAlertSound();
-            $.post(base_url + 'index.php/Ciber/eliminar_maquina', {id: id}, function(response) {
-                console.log('Respuesta del servidor:', response);
-                if (response.success) {
-                    showAlert('Máquina eliminada correctamente.');
-                    setTimeout(function() {
-                        location.reload();
-                    }, 1000);
-                } else {
-                    showAlert('Error al eliminar la máquina.');
-                }
-            }, 'json').fail(function() {
-                showAlert('Error de comunicación con el servidor.');
-            });
-        }
+        Swal.fire({
+            title: '¿Está seguro?',
+            text: "¿Desea eliminar esta máquina?",
+            icon: 'warning',
+            showCancelButton: true,
+            confirmButtonColor: '#3085d6',
+            cancelButtonColor: '#d33',
+            confirmButtonText: 'Sí, eliminar',
+            cancelButtonText: 'Cancelar',
+            background: '#1e293b',
+            color: '#e2e8f0',
+        }).then((result) => {
+            if (result.isConfirmed) {
+                playAlertSound();
+                $.post(base_url + 'index.php/Ciber/eliminar_maquina', {id: id}, function(response) {
+                    console.log('Respuesta del servidor:', response);
+                    if (response.success) {
+                        showAlert('Máquina eliminada correctamente.', 'success');
+                        setTimeout(function() {
+                            location.reload();
+                        }, 1000);
+                    } else {
+                        showAlert('Error al eliminar la máquina.', 'error');
+                    }
+                }, 'json').fail(function() {
+                    showAlert('Error de comunicación con el servidor.', 'error');
+                });
+            }
+        });
     }
 
     $('.eliminar').click(function() {
@@ -170,7 +215,7 @@ $(document).ready(function() {
         var maquinaId = $('#maquina-a-eliminar').val();
     
         if (!maquinaId) {
-            showAlert('Por favor, seleccione una máquina para eliminar.');
+            showAlert('Por favor, seleccione una máquina para eliminar.', 'warning');
             return;
         }
 
@@ -197,13 +242,13 @@ $(document).ready(function() {
         
         $.post(base_url + 'index.php/Ciber/actualizar_nota_mensaje', {id: id, nota: nota, mensaje: mensaje}, function(response) {
             if (response.success) {
-                showAlert('Mensaje enviado correctamente.');
+                showAlert('Mensaje enviado correctamente.', 'success');
                 card.find('.mensaje').val('');
             } else {
-                showAlert('Error al actualizar nota y mensaje.');
+                showAlert('Error al actualizar nota y mensaje.', 'error');
             }
         }, 'json').fail(function() {
-            showAlert('Error de comunicación con el servidor.');
+            showAlert('Error de comunicación con el servidor.', 'error');
         });
     });
 
@@ -213,13 +258,13 @@ $(document).ready(function() {
 
         $.post(base_url + 'index.php/Ciber/agregar_maquina', {nombre: nombre}, function(response) {
             if (response.success) {
-                showAlert('Máquina agregada correctamente.');
+                showAlert('Máquina agregada correctamente.', 'success');
                 location.reload();
             } else {
-                showAlert('Error al agregar la máquina.');
+                showAlert('Error al agregar la máquina.', 'error');
             }
         }, 'json').fail(function() {
-            showAlert('Error de comunicación con el servidor.');
+            showAlert('Error de comunicación con el servidor.', 'error');
         });
     });
 
@@ -232,23 +277,23 @@ $(document).ready(function() {
             var id = card.data('id');
             sessionStartTimes[id] = inicio;
             sessionTimers[id] = setInterval(actualizarContadores, 1000);
-        
-            function animateMachineNames() {
-                $('.card-header h5').each(function() {
-                    $(this).css('transform', 'scale(1.05)');
-                    setTimeout(() => {
-                        $(this).css('transform', 'scale(1)');
-                    }, 500);
-                });
-            }
-            
-            // Animar los nombres de las máquinas cada 5 segundos
-            setInterval(animateMachineNames, 5000);
         } else {
             card.find('.iniciar').prop('disabled', false);
             card.find('.finalizar').prop('disabled', true);
         }
     });
+
+    function animateMachineNames() {
+        $('.card-header h5').each(function() {
+            $(this).css('transform', 'scale(1.05)');
+            setTimeout(() => {
+                $(this).css('transform', 'scale(1)');
+            }, 500);
+        });
+    }
+    
+    // Animar los nombres de las máquinas cada 5 segundos
+    setInterval(animateMachineNames, 5000);
 
     // New code for clock and date
     function updateClockAndDate() {

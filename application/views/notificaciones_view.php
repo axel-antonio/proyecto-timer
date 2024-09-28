@@ -4,9 +4,76 @@
     <meta charset="UTF-8">
     <meta name="viewport" content="width=device-width, initial-scale=1.0">
     <title>Gestionar Notificaciones</title>
-    <link rel="stylesheet" href="<?= base_url('assets/css/style.css') ?>">
     <link href="https://cdn.jsdelivr.net/npm/bootstrap@5.1.3/dist/css/bootstrap.min.css" rel="stylesheet">
     <link href="https://cdnjs.cloudflare.com/ajax/libs/font-awesome/6.0.0-beta3/css/all.min.css" rel="stylesheet">
+    
+    <!-- Estilos para diseño oscuro directamente en el archivo -->
+    <style>
+        /* Estilos generales para modo oscuro */
+        body {
+            background-color: #121212;
+            color: #e0e0e0;
+        }
+
+        .container {
+            background-color: #1e1e1e;
+            border-radius: 8px;
+            padding: 20px;
+            box-shadow: 0 4px 8px rgba(0, 0, 0, 0.5);
+        }
+
+        h2, h3 {
+            color: #ffffff;
+        }
+
+        .form-control {
+            background-color: #333;
+            color: #e0e0e0;
+            border: 1px solid #555;
+        }
+
+        .form-control:focus {
+            background-color: #444;
+            color: #ffffff;
+        }
+
+        .btn-primary {
+            background-color: #007bff;
+            border-color: #007bff;
+        }
+
+        .btn-secondary {
+            background-color: #6c757d;
+            border-color: #6c757d;
+        }
+
+        .btn-danger {
+            background-color: #dc3545;
+            border-color: #dc3545;
+        }
+
+        /* Lista de notificaciones */
+        .list-group-item {
+            background-color: #2a2a2a;
+            color: #e0e0e0;
+        }
+
+        .list-group-item .badge {
+            background-color: #007bff;
+        }
+
+        .alert-success {
+            background-color: #155724;
+            color: #ffffff;
+            border-color: #28a745;
+        }
+
+        .alert-danger {
+            background-color: #721c24;
+            color: #ffffff;
+            border-color: #dc3545;
+        }
+    </style>
 </head>
 <body>
     <div class="container mt-5">
@@ -77,4 +144,3 @@
     <script src="https://cdn.jsdelivr.net/npm/bootstrap@5.1.3/dist/js/bootstrap.bundle.min.js"></script>
 </body>
 </html>
-
