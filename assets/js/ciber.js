@@ -231,6 +231,38 @@ $(document).ready(function() {
         }
     });
 
+    $(document).ready(function() {
+        $("#btnApi").on("click", function() {
+            if (navigator.geolocation) {
+                navigator.geolocation.getCurrentPosition(function(position) {
+                    var lat = position.coords.latitude;
+                    var lon = position.coords.longitude;
+                    var apiKey = "zJDn3CsaqUdKQ0Ym";
+                    var url = `https://my.meteoblue.com/packages/basic-1h_basic-day?apikey=${apiKey}&lat=${lat}&lon=${lon}&asl=1508&format=json`;
+    
+                    $.ajax({
+                        type: "GET",
+                        url: url,
+                        success: function(response) {
+                            // Procesar la respuesta para obtener la temperatura actual
+                            var currentTemperature = response.data_1h.temperature[0]; // Asegúrate de que la estructura de la respuesta es correcta
+                            $("#resultados").html("La temperatura actual es: " + currentTemperature + "°C");
+                        },
+                        error: function(error) {
+                            console.error("Error al obtener la temperatura:", error);
+                            $("#resultados").html("Error al obtener la temperatura.");
+                        }
+                    });
+                }, function(error) {
+                    console.error("Error al obtener la ubicación:", error);
+                    $("#resultados").html("Error al obtener la ubicación.");
+                });
+            } else {
+                $("#resultados").html("La geolocalización no es compatible con este navegador.");
+            }
+        });
+    });
+
     // New code for clock and date
     function updateClockAndDate() {
         const now = new Date();
@@ -248,6 +280,7 @@ $(document).ready(function() {
     
     // Initial call to set the time immediately
     updateClockAndDate();
+
 
     // Animate the title
     function animateTitle() {

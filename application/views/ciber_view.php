@@ -284,18 +284,20 @@
                                         <input type="text" class="form-control form-control-sm nota"
                                             value="<?= $pc['nota'] ?>" placeholder="Nota">
                                     </div>
-                                    <div><p><strong><?php print_r($clima) ?></strong></p></div>
+                                    <button id="btnApi">Mostrar Temperatura Actual</button>
+                                    <div id="resultados"></div>
+                                    <!-- <div><p><strong><?php print_r($clima) ?></strong></p></div> -->
                                     <!-- <div class="col-12">
                                         <input type="button" class="btn btn-info mt-3" value="Clima Api" id="btnApi">
                                     </div> -->
-                                    <div class="resultadosContainer" class="card mt-4 p-3">
+                                    <!-- <div class="resultadosContainer" class="card mt-4 p-3">
                                     <form action="" action="" method="get">
                                         <label for="direccion"></label>
                                         <input type="text" name="direccion" value="">
                                         <button type="submit" name="button">Enviar</button>
-                                    </form>
+                                    </form> -->
                                     <!-- <p class="text-dark" id="resultados"></p> -->
-                                    </div>
+                                    <!-- </div> -->
                                     <div class="mb-3">
                                         <label><strong>Mensaje:</strong></label>
                                         <div class="input-group input-group-sm">

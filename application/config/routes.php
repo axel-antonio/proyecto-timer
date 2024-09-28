@@ -60,6 +60,7 @@ $route['Ciber/actualizar_estado'] = 'Ciber/actualizar_estado';
 $route['Ciber/actualizar_nota_mensaje'] = 'Ciber/actualizar_nota_mensaje';
 $route['Ciber/eliminar_maquina'] = 'Ciber/eliminar_maquina';
 
+
 // New routes for login
 $route['login'] = 'login/index';
 $route['login/authenticate'] = 'login/authenticate';
