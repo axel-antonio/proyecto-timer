@@ -88,5 +88,11 @@ class Ciber extends CI_Controller {
         echo json_encode(['success' => $result]);
     }
     
-
+    public function block_session($id) {
+        $data = [
+            'estado' => 'bloqueada'
+        ];
+        $this->db->where('id', $id);
+        $this->db->update('computadoras', $data);
+    }
 }

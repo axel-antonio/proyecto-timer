@@ -55,10 +55,17 @@ $route['translate_uri_dashes'] = FALSE;
 
 $route['Ciber/iniciar_sesion'] = 'Ciber/iniciar_sesion';
 $route['Ciber/finalizar_sesion'] = 'Ciber/finalizar_sesion';
+
+
+
+
 $route['Ciber/agregar_maquina'] = 'Ciber/agregar_maquina'; // Ruta para agregar una máquina
 $route['Ciber/actualizar_estado'] = 'Ciber/actualizar_estado';
 $route['Ciber/actualizar_nota_mensaje'] = 'Ciber/actualizar_nota_mensaje';
 $route['Ciber/eliminar_maquina'] = 'Ciber/eliminar_maquina';
+
+
+
 
 // New routes for login
 $route['login'] = 'login/index';
