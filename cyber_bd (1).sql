@@ -54,6 +54,20 @@ INSERT INTO `computadoras` (`id`, `estado`, `inicio`, `contador`, `dto`, `parar_
 
 -- --------------------------------------------------------
 
+
+
+
+
+
+CREATE TABLE `notificaciones_personalizadas` (
+  `id` int(11) NOT NULL,
+  `computadora_id` int(11) NOT NULL,
+  `titulo` varchar(255) NOT NULL,
+  `mensaje` text NOT NULL,
+  `sonido` varchar(255) DEFAULT NULL,
+  `created_at` timestamp NOT NULL DEFAULT current_timestamp(),
+  `activa` tinyint(1) DEFAULT 0
+) ENGINE=InnoDB DEFAULT CHARSET=utf8mb4 COLLATE=utf8mb4_general_ci;
 --
 -- Estructura de tabla para la tabla `timers`
 --

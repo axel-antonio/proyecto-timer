@@ -5,7 +5,7 @@ $(document).ready(function() {
     var sessionTimers = {};
     var alertSound = new Audio(base_url + 'assets/audio/alert_sound.mp3');
 
-    // Verificar si el audio se carga correctamente
+    // Verificar si el audio se carga correctamente.
     alertSound.addEventListener('canplaythrough', function() {
         console.log('El sonido se cargó correctamente.');
     });
@@ -68,26 +68,48 @@ $(document).ready(function() {
                 var pararA = parseInt(card.find('.parar-a').val());
                 if (pararA && (minutos >= pararA)) {
                     finalizarSesion(id, card);
-                    mostrarNotificacionPersonalizada(id);
-                    playAlertSound();
+                    mostrarNotificacionPersonalizada(id, card);
+                    
                 }
             }
         });
     }
 
+    ///cambio nueva funcionalidad 
+    function mostrarNotificacionPersonalizada(id, card) {
+        $.get(base_url + 'index.php/Ciber/obtener_notificacion_personalizada/' + id, function(response) {
+            console.log('Respuesta del servidor:', response); // Agrega esta línea
+            if (response.success && response.notificacion) {
+                showAlert(response.notificacion.mensaje);
+                if (response.notificacion.reproducir_sonido) {
+                    playAlertSound();
+                }
+            } else {
+                // Si no hay notificación personalizada, mostrar la predeterminada
+                showAlert('tu tiempo a terminado ' + card.find('.card-header h5').text());
+                playAlertSound();
+            }
+        }, 'json').fail(function() {
+            showAlert('Error al obtener la notificación personalizada.');
+        });
+    }
+///fin cambio nueva funcionalidad
+
+
+
+
     function iniciarSesion(id, card) {
         var ahora = new Date();
         var pararA = card.find('.parar-a').val();
-        var notificacionPersonalizada = card.find('.notificacion-personalizada').val();
 
-        $.post(base_url + 'index.php/Ciber/iniciar_sesion', {id: id, parar_a: pararA, notificacion_personalizada: notificacionPersonalizada }, function(response) {
+        $.post(base_url + 'index.php/Ciber/iniciar_sesion', {id: id, parar_a: pararA}, function(response) {
             if (response.success) {
                 card.find('.status-indicator').removeClass('status-inactive').addClass('status-active');
                 card.find('.estado').text('en uso');
                 card.find('.inicio').text(ahora.toLocaleTimeString());
                 sessionStartTimes[id] = ahora;
                 card.find('.contador').text('00:00:00');
-                sessionTimers[id] = setInterval(function() { actualizarContadores(); }, 1000);
+                sessionTimers[id] = setInterval(actualizarContadores, 1000);
                 card.find('.iniciar').prop('disabled', true);
                 card.find('.finalizar').prop('disabled', false);
             } else {
@@ -109,7 +131,6 @@ $(document).ready(function() {
                 clearInterval(sessionTimers[id]);
                 delete sessionStartTimes[id];
                 delete sessionTimers[id];
-                card.find('.notificacion-personalizada').val('');
                 card.find('.iniciar').prop('disabled', false);
                 card.find('.finalizar').prop('disabled', true);
             } else {
@@ -119,20 +140,6 @@ $(document).ready(function() {
             showAlert('Error de comunicación con el servidor.');
         });
     }
-
-
-    function mostrarNotificacionPersonalizada(id) {
-        $.post(base_url + 'index.php/Ciber/obtener_notificacion', {id: id}, function(response) {
-            if (response.notificacion) {
-                showAlert(response.notificacion);
-                playAlertSound();
-            }
-        }, 'json').fail(function() {
-            console.log('Error al obtener la notificación personalizada.');
-        });
-    }
-
-
 
     function eliminarMaquina(id) {
         if (confirm('¿Está seguro de que desea eliminar esta máquina?')) {
@@ -224,9 +231,8 @@ $(document).ready(function() {
             var inicio = new Date(card.find('.inicio').text());
             var id = card.data('id');
             sessionStartTimes[id] = inicio;
-            sessionTimers[id] = setInterval(function() { actualizarContadores(); }, 1000);
-       
-       
+            sessionTimers[id] = setInterval(actualizarContadores, 1000);
+        
             function animateMachineNames() {
                 $('.card-header h5').each(function() {
                     $(this).css('transform', 'scale(1.05)');
@@ -238,9 +244,6 @@ $(document).ready(function() {
             
             // Animar los nombres de las máquinas cada 5 segundos
             setInterval(animateMachineNames, 5000);
-            
-       
-       
         } else {
             card.find('.iniciar').prop('disabled', false);
             card.find('.finalizar').prop('disabled', true);
@@ -283,6 +286,3 @@ $(document).ready(function() {
     actualizarContadores();
     setInterval(actualizarContadores, 1000);
 });
-
-//implementacion de alertas y notificaciones personalizadasn
-setInterval(animateTitle, 5000);

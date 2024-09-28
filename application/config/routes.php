@@ -64,3 +64,9 @@ $route['Ciber/eliminar_maquina'] = 'Ciber/eliminar_maquina';
 $route['login'] = 'login/index';
 $route['login/authenticate'] = 'login/authenticate';
 $route['logout'] = 'login/logout';
+
+$route['Ciber/gestionar_notificaciones/(:num)'] = 'Ciber/gestionar_notificaciones/$1';
+$route['Ciber/get_notifications/(:num)'] = 'Ciber/get_notifications/$1';
+$route['Ciber/add_notification'] = 'Ciber/add_notification';
+$route['Ciber/update_notification'] = 'Ciber/update_notification';
+$route['Ciber/delete_notification'] = 'Ciber/delete_notification';

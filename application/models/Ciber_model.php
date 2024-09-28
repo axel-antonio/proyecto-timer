@@ -16,72 +16,46 @@ class Ciber_model extends CI_Model {
         ]);
     }
 
-    // Contar el total de computadoras
     public function count_computers() {
         return $this->db->count_all('computadoras');
     }
 
-    // Agregar una nueva máquina
     public function add_machine($data) {
         if (!isset($data['nombre']) || empty($data['nombre'])) {
-            return false; // Validación extra en caso de que el nombre falte
+            return false;
         }
         return $this->db->insert('computadoras', $data);
     }
 
-    // Obtener todas las computadoras
     public function get_all_computers() {
         return $this->db->get('computadoras')->result_array();
     }
 
-    // Actualizar el estado de una computadora
     public function update_computer_state($id, $estado) {
         $this->db->where('id', $id);
         return $this->db->update('computadoras', ['estado' => $estado]);
     }
 
-    // Iniciar sesión en una máquina
-    public function start_session($id, $parar_a, $notificacion_personalizada) {
+    public function start_session($id, $parar_a) {
         $this->db->where('id', $id);
         return $this->db->update('computadoras', [
             'estado' => 'en uso',
             'inicio' => date('H:i:s'),
             'contador' => '00:00:00',
-            'parar_a' => $parar_a,
-            'notificacion_personalizada' => $notificacion_personalizada
+            'parar_a' => $parar_a
         ]);
     }
 
-    // Finalizar sesión en una máquina
     public function end_session($id) {
         $this->db->where('id', $id);
         return $this->db->update('computadoras', [
             'estado' => 'sin usar',
             'inicio' => NULL,
             'contador' => NULL,
-            'nota' => '',
-            'notificacion_personalizada' => NULL
+            'nota' => ''
         ]);
     }
 
-  // Nuevo método para obtener la notificación personalizada
-  public function get_notification($id) {
-    $this->db->select('notificacion_personalizada');
-    $this->db->where('id', $id);
-    $query = $this->db->get('computadoras');
-    
-     // Asegurarte de que devuelva el valor correcto
-     if ($query->num_rows() > 0) {
-        return $query->row()->notificacion_personalizada;
-    }
-    return null; // En caso de que no se encuentre
-}
-
-
-
-
-
-    // Actualizar nota y mensaje de una máquina
     public function update_computer_note_and_message($id, $nota, $mensaje) {
         $this->db->where('id', $id);
         return $this->db->update('computadoras', [
@@ -90,12 +64,48 @@ class Ciber_model extends CI_Model {
         ]);
     }
 
-    // Eliminar una máquina
     public function delete_computer($id) {
         if (!$id) {
-            return false; // Verificación extra en caso de que el ID no esté presente
+            return false;
         }
         $this->db->where('id', $id);
         return $this->db->delete('computadoras');
+    }
+
+    public function get_notifications($computadora_id) {
+        $this->db->where('computadora_id', $computadora_id);
+        return $this->db->get('notificaciones_personalizadas')->result_array();
+    }
+
+    public function add_notification($data) {
+        return $this->db->insert('notificaciones_personalizadas', $data);
+    }
+
+    public function update_notification($id, $data) {
+        $this->db->where('id', $id);
+        return $this->db->update('notificaciones_personalizadas', $data);
+    }
+
+    public function delete_notification($id) {
+        $this->db->where('id', $id);
+        return $this->db->delete('notificaciones_personalizadas');
+    }
+
+    public function get_computer_by_id($id) {
+        $this->db->where('id', $id);
+        return $this->db->get('computadoras')->row_array();
+    }
+
+    // Nuevo método para obtener la notificación activa
+    public function get_active_notification($computadora_id) {
+        $this->db->where('computadora_id', $computadora_id);
+        $this->db->where('activa', 1);
+        $query = $this->db->get('notificaciones_personalizadas');
+        
+        if ($query->num_rows() > 0) {
+            return $query->row_array();
+        }
+        
+        return null;
     }
 }
