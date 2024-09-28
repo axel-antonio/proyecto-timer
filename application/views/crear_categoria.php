@@ -4,24 +4,37 @@
     <meta charset="UTF-8">
     <meta name="viewport" content="width=device-width, initial-scale=1.0">
     <title>Agregar Nueva Categoría</title>
+    <!-- Enlace al archivo CSS -->
+    <link rel="stylesheet" type="text/css" href="<?= base_url('assets/css/styleC.css'); ?>">
 </head>
 <body>
-    <h1>Agregar Nueva Categoría</h1>
 
-    <form action="<?= base_url('index.php/Categoria/guardar'); ?>" method="post">
-        <label for="nombre">Nombre:</label>
-        <input type="text" name="nombre" required><br><br>
+    <div class="container-editar">
+        <h2>Agregar Nueva Categoría</h2>
 
-        <label for="descripcion">Descripción:</label>
-        <textarea name="descripcion" required></textarea><br><br>
+        <!-- Formulario para crear una nueva categoría -->
+        <form action="<?= base_url('index.php/Categoria/guardar'); ?>" method="post" class="form-categoria">
+            <div class="form-group">
+                <label for="nombre">Nombre:</label>
+                <input type="text" id="nombre" name="nombre" required>
+            </div>
 
-        <label for="restriccion_tiempo">Restricción de Tiempo (min):</label>
-        <input type="number" name="restriccion_tiempo" required><br><br>
+            <div class="form-group">
+                <label for="descripcion">Descripción:</label>
+                <textarea id="descripcion" name="descripcion" required></textarea>
+            </div>
 
-        <button type="submit">Guardar</button>
-    </form>
+            <div class="form-group">
+                <label for="restriccion_tiempo">Restricción de Tiempo (min):</label>
+                <input type="number" id="restriccion_tiempo" name="restriccion_tiempo" required>
+            </div>
 
-    <br>
-    <a href="<?= base_url('index.php/Categoria'); ?>">Regresar a la pantalla principal</a>
+            <button type="submit" class="btn-guardar">Guardar</button>
+        </form>
+
+        <!-- Botón para regresar -->
+        <a href="<?= base_url('index.php/Categoria'); ?>" class="btn-regresar">Regresar a la pantalla principal</a>
+    </div>
+
 </body>
 </html>

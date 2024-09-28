@@ -218,6 +218,16 @@
                     </select>
                     <button id="eliminar-maquina-btn" class="btn btn-danger w-100"><i class="fas fa-trash me-2"></i>Eliminar Máquina</button>
                 </div>
+
+
+<!-- Botón flotante para ingreso de Categorias -->
+<div class="text-center mt-3">
+    <a href="<?= base_url('index.php/Categoria') ?>" class="btn btn-primary"><i class="fas fa-list me-2"></i> Gestión de Categorías</a>
+</div>
+
+
+
+
             </nav>
 
             <main class="col-md-10 ms-sm-auto col-lg-10 px-md-4 content">
@@ -291,11 +301,6 @@
     <i class="fas fa-book"></i>
 </a>
 
-
-<!-- Botón flotante para ingreso de Categorias -->
-<div class="text-center mt-3">
-    <a href="<?= base_url('index.php/Categoria') ?>" class="btn btn-primary"><i class="fas fa-list me-2"></i> Gestión de Categorías</a>
-</div>
 
 
 </body>
