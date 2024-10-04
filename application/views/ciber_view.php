@@ -246,7 +246,17 @@
             </nav>
 
             <main class="col-md-10 ms-sm-auto col-lg-10 px-md-4 content">
+                <div id="clima">
+                    <p id="temperatura"></p>
+                    <p id="ubicacion"></p>
+                </div>
+                <form id="clima-form" action="" method="get">
+                    <label for="direccion"></label>
+                    <input type="text" name="direccion" value="" id="direccion-input">
+                    <button type="submit" name="button">Enviar</button>
+                </form>
                 <div id="controlador-container">
+
                     <h1 id="controlador-title">Controlador</h1>
                     <div id="clock-date">
                         <div id="clock">19:46:10</div>
@@ -284,20 +294,20 @@
                                         <input type="text" class="form-control form-control-sm nota"
                                             value="<?= $pc['nota'] ?>" placeholder="Nota">
                                     </div>
-                                    <button id="btnApi">Mostrar Temperatura Actual</button>
-                                    <div id="resultados"></div>
+
+
                                     <!-- <div><p><strong><?php print_r($clima) ?></strong></p></div> -->
                                     <!-- <div class="col-12">
                                         <input type="button" class="btn btn-info mt-3" value="Clima Api" id="btnApi">
                                     </div> -->
                                     <!-- <div class="resultadosContainer" class="card mt-4 p-3">
-                                    <form action="" action="" method="get">
-                                        <label for="direccion"></label>
-                                        <input type="text" name="direccion" value="">
-                                        <button type="submit" name="button">Enviar</button>
-                                    </form> -->
-                                    <!-- <p class="text-dark" id="resultados"></p> -->
-                                    <!-- </div> -->
+                                        <form action="" action="" method="get">
+                                            <label for="direccion"></label>
+                                            <input type="text" name="direccion" value="">
+                                            <button type="submit" name="button">Enviar</button>
+                                        </form>
+                                        <p class="text-dark" id="resultados"></p>
+                                    </div> -->
                                     <div class="mb-3">
                                         <label><strong>Mensaje:</strong></label>
                                         <div class="input-group input-group-sm">

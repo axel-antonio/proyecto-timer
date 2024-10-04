@@ -1,4 +1,23 @@
 console.log('Base URL:', base_url);
+const temperatura = data.data_1h.temperature[0];
+const humedad = data.data_1h.relativehumidity[0];
+const precipitacion = data.data_1h.precipitation[0];
+const viento = data.data_1h.windspeed[0];
+
+fetch(url)
+  .then(response => response.json())
+  .then(data => {
+    const temperatura = data.data_1h.temperature[0];
+    const ubicacion = data.metadata.name;
+    const latitud = data.metadata.latitude;
+    const longitud = data.metadata.longitude;
+
+    // Actualiza la vista con la información del clima
+    document.getElementById('temperatura').innerHTML = `Temperatura: ${temperatura}°C`;
+    document.getElementById('ubicacion').innerHTML = `Ubicación: ${ubicacion} (${latitud}, ${longitud})`;
+  })
+  .catch(error => console.error(error));
+
 
 $(document).ready(function() {
     var sessionStartTimes = {};
@@ -231,38 +250,6 @@ $(document).ready(function() {
         }
     });
 
-    $(document).ready(function() {
-        $("#btnApi").on("click", function() {
-            if (navigator.geolocation) {
-                navigator.geolocation.getCurrentPosition(function(position) {
-                    var lat = position.coords.latitude;
-                    var lon = position.coords.longitude;
-                    var apiKey = "zJDn3CsaqUdKQ0Ym";
-                    var url = `https://my.meteoblue.com/packages/basic-1h_basic-day?apikey=${apiKey}&lat=${lat}&lon=${lon}&asl=1508&format=json`;
-    
-                    $.ajax({
-                        type: "GET",
-                        url: url,
-                        success: function(response) {
-                            // Procesar la respuesta para obtener la temperatura actual
-                            var currentTemperature = response.data_1h.temperature[0]; // Asegúrate de que la estructura de la respuesta es correcta
-                            $("#resultados").html("La temperatura actual es: " + currentTemperature + "°C");
-                        },
-                        error: function(error) {
-                            console.error("Error al obtener la temperatura:", error);
-                            $("#resultados").html("Error al obtener la temperatura.");
-                        }
-                    });
-                }, function(error) {
-                    console.error("Error al obtener la ubicación:", error);
-                    $("#resultados").html("Error al obtener la ubicación.");
-                });
-            } else {
-                $("#resultados").html("La geolocalización no es compatible con este navegador.");
-            }
-        });
-    });
-
     // New code for clock and date
     function updateClockAndDate() {
         const now = new Date();
@@ -281,6 +268,34 @@ $(document).ready(function() {
     // Initial call to set the time immediately
     updateClockAndDate();
 
+    const form = document.getElementById('clima-form');
+    const direccionInput = document.getElementById('direccion-input');
+
+    form.addEventListener('submit', (e) => {
+        e.preventDefault();
+        const direccion = direccionInput.value.trim();
+        const apiKey = 'zJDn3CsaqUdKQ0Ym'; // Reemplaza con tu clave API
+        const lat = '14.6407'; // Latitud
+        const lon = '-90.5133'; // Longitud
+        const asl = '1508'; // Altitud sobre el nivel del mar
+        const format = 'json'; // Formato de respuesta
+
+        const url = `https://my.meteoblue.com/packages/basic-1h_basic-day?apikey=${apiKey}&lat=${lat}&lon=${lon}&asl=${asl}&format=${format}`;
+
+fetch(url)
+  .then(response => response.json())
+  .then(data => {
+    const temperatura = data.data_1h.temperature[0];
+    const ubicacion = data.metadata.name;
+    const latitud = data.metadata.latitude;
+    const longitud = data.metadata.longitude;
+
+    // Actualiza la vista con la información del clima
+    document.getElementById('temperatura').innerHTML = `Temperatura: ${temperatura}°C`;
+    document.getElementById('ubicacion').innerHTML = `Ubicación: ${ubicacion} (${latitud}, ${longitud})`;
+  })
+  .catch(error => console.error(error));
+    });
 
     // Animate the title
     function animateTitle() {
